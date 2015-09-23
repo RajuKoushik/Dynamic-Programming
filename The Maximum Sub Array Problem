@@ -1,0 +1,130 @@
+#include<stdio.h>
+#include<math.h>
+int main(void)
+{
+    int t;
+    scanf("%d",&t);
+    int ii;
+    for(ii=0;ii<t;ii++)
+    {
+
+
+    int n;
+    scanf("%d",&n);
+    int array[n];
+    int i;
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&array[i]);
+    }
+
+    printf("%d\n",maxsub(array,0,n-1));
+    }
+   // printf("%d",factorial(n)); testing my recursion basics
+
+}
+
+int midsub(int array[],int low,int high)
+{
+    int leftsum=-100000;
+
+    int templeft;
+    int mid=(low+high)/2;
+    int i;
+    int sum1=0;
+
+
+    for(i=mid;i>=0;i--)
+    {
+        sum1=sum1+array[i];
+        if(sum1>leftsum)
+        {
+            leftsum=sum1;
+            templeft=i;
+        }
+    }
+    int j;
+    int sum2=0;
+    int rightsum=-100000;
+    int tempright;
+    for(j=mid+1;j<=high;j++)
+    {
+        sum2=sum2+array[j];
+        if(sum2>rightsum)
+        {
+            rightsum=sum2;
+            tempright=j;
+        }
+    }
+
+    return rightsum+leftsum;
+
+
+
+}
+
+//function of maximum subarray
+int maxsub(int array[],int low,int high)
+{
+    if(high==low)
+    {
+
+
+        return array[low];
+    }
+    else
+    {
+    int mid = (high+low)/2;
+        int low_sum=0;
+
+        low_sum=maxsub(array,low,mid)+low_sum;
+
+        int high_sum=0;
+
+        high_sum=maxsub(array,mid+1,high)+high_sum;
+
+        int mid_sum;
+        mid_sum=midsub(array,low,high);
+
+
+        if(low_sum>=high_sum&&low_sum>=mid_sum)
+            return low_sum;
+        else if(high_sum>=low_sum&&high_sum>=mid_sum)
+            return high_sum;
+        else
+            return mid_sum;
+
+
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+//recalling the concept of recursion
+
+int factorial(int n)
+{
+    if(n==0)
+        return 1;
+    else if(n==1)
+        return 1;
+    else if(n==2)
+        return 2;
+    else
+        return factorial(n-1)*n;
+
+}
