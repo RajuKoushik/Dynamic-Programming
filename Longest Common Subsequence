@@ -1,0 +1,91 @@
+import java.util.*;
+import java.io.*;
+import java.lang.*;
+import java.math.*;
+//longest common subsequence-LCS
+//important->making a table
+public class lcs 
+{
+	static int[][] d = new int[100][100];
+	public static void main(String[] args) 
+	{
+		System.out.println("enter the strings");
+		Scanner sc = new Scanner(System.in);
+		String x;
+		String y;
+		x = sc.nextLine();
+		y = sc.nextLine();
+		int ans = lcs_length(x,y);
+		System.out.println(ans);
+		print_lcs(x,x.length(),y.length());
+		
+	}
+	
+	public static int lcs_length(String x,String y)
+	{
+		int m = x.length();
+		int n = y.length();
+		int[][] c = new int[m+1][n+1];
+		
+		for(int i=1;i<=m;i++)
+		{
+			c[i][0]=0;
+		}
+		
+		for(int j=0;j<=n;j++)
+		{
+			c[0][j]=0;
+		}
+		
+		for(int i=1;i<=m;i++)
+		{
+			for(int j=1;j<=n;j++)
+			{
+				if(x.charAt(i-1)==y.charAt(j-1))
+				{
+					c[i][j]=c[i-1][j-1]+1;
+					d[i][j]=4;
+				}
+				else if(c[i-1][j]>=c[i][j-1])
+				{
+					c[i][j]=c[i-1][j];
+					d[i][j]=1;
+				}
+				else
+				{
+					c[i][j]=c[i][j-1];
+					d[i][j]=7;
+				}
+				
+				
+				
+			}
+		}
+		
+		return c[m][n];	
+	}
+	//printing the longest common subsequence
+	public static void print_lcs(String x,int i,int j)
+	{
+		if(i==0 || j==0)
+		{
+			return;
+		}
+		if(d[i][j]==4)
+		{
+			print_lcs(x,i-1,j-1);
+			System.out.print(x.charAt(i-1));
+		}
+		else if(d[i][j]==1)
+		{
+			print_lcs(x,i-1,j);
+		}
+		else
+		{
+			print_lcs(x,i,j-1);
+		}
+	}
+	
+	
+
+}
