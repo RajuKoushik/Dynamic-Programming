@@ -44,17 +44,17 @@ public class lcs
 				if(x.charAt(i-1)==y.charAt(j-1))
 				{
 					c[i][j]=c[i-1][j-1]+1;
-					d[i][j]=4;
+					d[i][j]=4;//edge 
 				}
 				else if(c[i-1][j]>=c[i][j-1])
 				{
 					c[i][j]=c[i-1][j];
-					d[i][j]=1;
+					d[i][j]=1;//up arrow
 				}
 				else
 				{
 					c[i][j]=c[i][j-1];
-					d[i][j]=7;
+					d[i][j]=7;//left arrow
 				}
 				
 				
